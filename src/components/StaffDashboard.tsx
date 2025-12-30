@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { User, Appointment } from '../types';
 import { api } from '../services/api';
 import { Calendar as CalendarIcon, LogOut, Clock, MapPin, ExternalLink, CalendarDays } from 'lucide-react';
-import { Calendar } from './Calendar';
+import { StaffCalendar } from './StaffCalendar';
 
 interface StaffDashboardProps {
   user: User;
@@ -61,7 +61,7 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconne
                 Mon planning
               </h3>
 
-              <Calendar onDateSelect={setSelectedDate} />
+              <StaffCalendar appointments={appointments} onDateSelect={setSelectedDate} />
             </div>
 
             <div className="bg-stone-800 text-white p-6 rounded-lg shadow-lg">
