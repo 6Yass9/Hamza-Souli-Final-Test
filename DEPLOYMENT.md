@@ -66,3 +66,14 @@ This application currently uses `localStorage` (Browser Storage) to save clients
 - **Pros**: Zero cost, no backend setup required.
 - **Cons**: Data is stored **only in your browser**. If you clear cookies or use a different computer, the data won't be there.
 - **For Clients**: When a client logs in on *their* device, they won't see data you saved on *your* device unless you upgrade this app to use a real database (like Firebase or Supabase) in the future.
+
+---
+
+## 7. Staff notes on appointments (Supabase)
+
+If you want the admin to leave internal notes that are visible to the assigned staff member in the staff dashboard, add a column to the `appointments` table:
+
+```sql
+alter table public.appointments
+  add column if not exists staff_note text;
+```

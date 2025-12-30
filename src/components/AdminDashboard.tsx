@@ -106,7 +106,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     date: '',
     time: '10:00',
     type: 'Consultation',
-    status: 'confirmed' as Appointment['status']
+    status: 'confirmed' as Appointment['status'],
+    staffNote: ''
   });
 
   const convertFileToBase64 = (file: File): Promise<string> =>
@@ -237,7 +238,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       time: newAppointmentData.time || '10:00',
       type: newAppointmentData.type,
       status: newAppointmentData.status,
-      staffId: newAppointmentData.staffId || undefined
+      staffId: newAppointmentData.staffId || undefined,
+      staffNote: newAppointmentData.staffNote
     });
 
     if (!created) {
@@ -252,7 +254,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       date: '',
       time: '10:00',
       type: 'Consultation',
-      status: 'confirmed'
+      status: 'confirmed',
+      staffNote: ''
     });
     await refreshData();
   };
@@ -1294,6 +1297,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                 </select>
               </div>
 
+              <div className="space-y-1">
+                <label className="text-xs uppercase tracking-wide text-stone-500">Note pour le staff</label>
+                <textarea
+                  value={editingAppointment.staffNote || ''}
+                  onChange={e => setEditingAppointment({ ...editingAppointment, staffNote: e.target.value })}
+                  rows={3}
+                  className="w-full border border-stone-200 rounded-md p-3 text-sm focus:outline-none focus:border-stone-500 bg-white"
+                  placeholder="Ex: Arriver 30 min avant, vérifier le matériel, contacter le client si besoin..."
+                />
+                <p className="text-[11px] text-stone-400">Cette note sera visible par le staff dans son planning.</p>
+              </div>
+
               <div className="pt-4 flex gap-3">
                 <button
                   type="button"
@@ -1413,6 +1428,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   <option value="completed">{t('admin.overview.status.completed') || 'Terminé'}</option>
                   <option value="cancelled">{t('admin.overview.status.cancelled') || 'Annulé'}</option>
                 </select>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs uppercase tracking-wide text-stone-500">Note pour le staff</label>
+                <textarea
+                  value={newAppointmentData.staffNote}
+                  onChange={e => setNewAppointmentData({ ...newAppointmentData, staffNote: e.target.value })}
+                  rows={3}
+                  className="w-full border border-stone-200 rounded-md p-3 text-sm focus:outline-none focus:border-stone-500 bg-white"
+                  placeholder="Ex: Arriver 30 min avant, vérifier le matériel, contacter le client si besoin..."
+                />
+                <p className="text-[11px] text-stone-400">Cette note sera visible par le staff dans son planning.</p>
               </div>
 
               <div className="pt-4 flex gap-3">

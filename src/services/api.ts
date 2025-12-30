@@ -20,7 +20,8 @@ const mapAppointment = (row: any): Appointment => ({
   clientName: row.client_name,
   status: row.status,
   type: row.type ?? '',
-  staffId: row.user_id ?? undefined // ✅ maps to appointments.user_id
+  staffId: row.user_id ?? undefined, // ✅ maps to appointments.user_id
+  staffNote: row.staff_note ?? row.staff_notes ?? null
 });
 
 const mapAlbum = (row: any): Album => ({
@@ -151,6 +152,7 @@ export const api = {
     type: string;
     status?: 'pending' | 'confirmed' | 'completed' | 'cancelled';
     staffId?: string;
+    staffNote?: string;
   }): Promise<Appointment | null> => {
     const insertPayload: any = {
       client_name: payload.clientName.trim(),
@@ -159,7 +161,8 @@ export const api = {
       time: payload.time || '10:00',
       type: payload.type || 'Other',
       status: payload.status || 'confirmed',
-      user_id: payload.staffId || null
+      user_id: payload.staffId || null,
+      staff_note: payload.staffNote?.trim() ? payload.staffNote.trim() : null
     };
 
     const { data, error } = await supabase()
@@ -419,6 +422,8 @@ export const api = {
     if (updates.clientName !== undefined) payload.client_name = updates.clientName;
     if (updates.status !== undefined) payload.status = updates.status;
     if (updates.type !== undefined) payload.type = updates.type;
+
+    if (updates.staffNote !== undefined) payload.staff_note = updates.staffNote;
 
     // ✅ staff assignment stored in appointments.user_id
     if (updates.staffId !== undefined) payload.user_id = updates.staffId || null;

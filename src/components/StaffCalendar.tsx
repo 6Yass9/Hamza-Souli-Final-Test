@@ -61,11 +61,9 @@ export const StaffCalendar: React.FC<StaffCalendarProps> = ({ appointments, onDa
           onClick={() => handleSelect(dateString)}
           className={[
             'h-12 rounded-md flex flex-col items-center justify-center transition-colors',
-            'border border-stone-200 dark:border-stone-700',
-            'hover:bg-stone-100 dark:hover:bg-stone-800',
-            isSelected
-              ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900'
-              : 'bg-white dark:bg-stone-900 text-stone-800 dark:text-stone-100'
+            'border border-stone-200',
+            'hover:bg-stone-100',
+            isSelected ? 'bg-stone-900 text-white' : 'bg-white text-stone-800'
           ].join(' ')}
         >
           <span className={['text-sm', isSelected ? 'font-semibold' : ''].join(' ')}>{day}</span>
@@ -74,9 +72,7 @@ export const StaffCalendar: React.FC<StaffCalendarProps> = ({ appointments, onDa
             <span
               className={[
                 'mt-1 text-[10px] leading-none px-2 py-[2px] rounded-full',
-                isSelected
-                  ? 'bg-white/20 text-white dark:bg-stone-900/10 dark:text-stone-900'
-                  : 'bg-stone-100 text-stone-700 dark:bg-stone-800 dark:text-stone-200'
+                isSelected ? 'bg-white/20 text-white' : 'bg-stone-100 text-stone-700'
               ].join(' ')}
             >
               {count} rdv
@@ -90,30 +86,30 @@ export const StaffCalendar: React.FC<StaffCalendarProps> = ({ appointments, onDa
   };
 
   return (
-    <div className="bg-white dark:bg-stone-900 rounded-lg shadow-lg border border-stone-100 dark:border-stone-800">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-stone-100 dark:border-stone-800">
+    <div className="bg-white rounded-lg border border-stone-100">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-stone-100">
         <button
           type="button"
           onClick={goPrevMonth}
-          className="p-2 rounded-md hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-200"
+          className="p-2 rounded-md hover:bg-stone-100 text-stone-700"
           aria-label="Mois précédent"
         >
           <ChevronLeft size={18} />
         </button>
 
-        <div className="text-sm font-medium capitalize text-stone-800 dark:text-stone-100">{monthLabel}</div>
+        <div className="text-sm font-medium capitalize text-stone-800">{monthLabel}</div>
 
         <button
           type="button"
           onClick={goNextMonth}
-          className="p-2 rounded-md hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-200"
+          className="p-2 rounded-md hover:bg-stone-100 text-stone-700"
           aria-label="Mois suivant"
         >
           <ChevronRight size={18} />
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-2 p-4 text-xs text-stone-400 dark:text-stone-500">
+      <div className="grid grid-cols-7 gap-2 p-4 text-xs text-stone-400">
         {['D', 'L', 'M', 'M', 'J', 'V', 'S'].map((d) => (
           <div key={d} className="text-center font-medium">
             {d}
