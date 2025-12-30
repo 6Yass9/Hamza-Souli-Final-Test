@@ -28,23 +28,23 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconne
   }, [appointments, selectedDate]);
 
   return (
-    <div className="min-h-screen bg-stone-50 dark:bg-stone-900 transition-colors duration-300">
+    <div className="min-h-screen bg-stone-50">
       {/* Header */}
-      <header className="bg-white dark:bg-stone-800 border-b border-stone-200 dark:border-stone-700 px-8 py-4 flex justify-between items-center sticky top-0 z-30 transition-colors">
+      <header className="bg-white border-b border-stone-200 px-8 py-4 flex justify-between items-center sticky top-0 z-30">
         <div className="flex items-center gap-4">
-          <img src="/logo.png" alt="Hamza Souli" className="h-6 w-auto brightness-0 dark:brightness-100" />
-          <span className="text-stone-400 dark:text-stone-500 font-sans text-xs uppercase tracking-wide border-l border-stone-200 dark:border-stone-700 pl-4">
+          <img src="/logo.png" alt="Hamza Souli" className="h-6 w-auto" />
+          <span className="text-stone-400 font-sans text-xs uppercase tracking-wide border-l border-stone-200 pl-4">
             Espace Staff
           </span>
         </div>
 
         <div className="flex items-center gap-6">
-          <span className="text-sm font-medium text-stone-600 dark:text-stone-300 hidden md:inline">
+          <span className="text-sm font-medium text-stone-600 hidden md:inline">
             Connecté en tant que {user.name}
           </span>
           <button
             onClick={onDéconnexion}
-            className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-800 dark:hover:text-stone-100 transition-colors"
+            className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-800 transition-colors"
           >
             <LogOut size={16} /> Déconnexion
           </button>
@@ -55,8 +55,8 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconne
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Calendar View */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-white dark:bg-stone-800 p-6 shadow-sm border border-stone-100 dark:border-stone-700 rounded-lg">
-              <h3 className="font-serif text-2xl mb-6 flex items-center gap-2 text-stone-800 dark:text-stone-100">
+            <div className="bg-white p-6 shadow-sm border border-stone-100 rounded-lg">
+              <h3 className="font-serif text-2xl mb-6 flex items-center gap-2 text-stone-800">
                 <CalendarDays size={20} className="text-stone-400" />
                 Mon planning
               </h3>
@@ -64,17 +64,17 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconne
               <StaffCalendar appointments={appointments} onDateSelect={setSelectedDate} />
             </div>
 
-            <div className="bg-stone-800 text-white p-6 rounded-lg shadow-lg">
-              <h4 className="text-xs uppercase tracking-widest opacity-60 mb-2">Total des assignations</h4>
-              <div className="text-3xl font-serif">{appointments.length} Events</div>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
+              <h4 className="text-xs uppercase tracking-widest text-stone-500 mb-2">Total des assignations</h4>
+              <div className="text-3xl font-serif text-stone-900">{appointments.length} RDV</div>
             </div>
           </div>
 
           {/* Schedule Detail Area */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-stone-800 shadow-sm border border-stone-100 dark:border-stone-700 rounded-lg h-full min-h-[500px]">
-              <div className="p-6 border-b border-stone-100 dark:border-stone-700 flex justify-between items-center">
-                <h2 className="font-serif text-2xl text-stone-800 dark:text-stone-100">
+            <div className="bg-white shadow-sm border border-stone-100 rounded-lg h-full min-h-[500px]">
+              <div className="p-6 border-b border-stone-100 flex justify-between items-center">
+                <h2 className="font-serif text-2xl text-stone-800">
                   {selectedDate ? `Planning du ${selectedDate}` : 'Événements à venir'}
                 </h2>
               </div>
@@ -85,29 +85,29 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconne
                     {appointmentsOnSelectedDate.map(app => (
                       <div
                         key={app.id}
-                        className="p-6 border border-stone-100 dark:border-stone-700 rounded-lg bg-stone-50 dark:bg-stone-900/40 hover:border-stone-300 dark:hover:border-stone-500 transition-all group"
+                        className="p-6 border border-stone-100 rounded-lg bg-stone-50 hover:border-stone-300 transition-all group"
                       >
                         <div className="flex justify-between items-start mb-4">
                           <div>
-                            <span className="text-[10px] uppercase tracking-widest bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 px-2 py-1 rounded">
+                            <span className="text-[10px] uppercase tracking-widest bg-stone-900 text-white px-2 py-1 rounded">
                               {app.type}
                             </span>
-                            <h3 className="font-serif text-2xl text-stone-900 dark:text-stone-100 mt-2">
+                            <h3 className="font-serif text-2xl text-stone-900 mt-2">
                               {app.clientName}
                             </h3>
                           </div>
-                          <div className="flex items-center gap-1 text-xs text-stone-500 dark:text-stone-400">
+                          <div className="flex items-center gap-1 text-xs text-stone-500">
                             <Clock size={14} /> {app.time || '--:--'}
                           </div>
                         </div>
 
-                        <div className="flex flex-col md:flex-row gap-4 md:items-center text-sm text-stone-600 dark:text-stone-400">
+                        <div className="flex flex-col md:flex-row gap-4 md:items-center text-sm text-stone-600">
                           <div className="flex items-center gap-2">
                             <MapPin size={16} className="text-stone-400" />
                             <span>Détails du lieu dans les notes admin</span>
                           </div>
 
-                          <button className="md:ml-auto flex items-center gap-2 text-stone-800 dark:text-stone-200 font-bold hover:underline">
+                          <button className="md:ml-auto flex items-center gap-2 text-stone-800 font-bold hover:underline">
                             Voir le dossier client <ExternalLink size={14} />
                           </button>
                         </div>
