@@ -136,12 +136,6 @@ export const Login: React.FC<LoginProps> = ({ onLogin, onBack }) => {
         <div className="mt-8 text-center text-xs text-stone-400 leading-relaxed border-t border-stone-100 pt-4">
           <p>{t('login.unified.help.clients')}</p>
           <p>{t('login.unified.help.staff')}</p>
-
-          {/* keep your demo text if you still want it */}
-          <div className="mt-3">
-            <p>{t('login.demo.admin', { email: 'admin@souli.com' })}</p>
-            <p>{t('login.demo.client', { code: '123456' })}</p>
-          </div>
         </div>
       </div>
     </div>
