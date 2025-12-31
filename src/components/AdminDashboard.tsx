@@ -29,6 +29,7 @@ import {
   Shield
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { ThemeToggle } from './ThemeToggle';
 import { AdminAppointmentsCalendar } from './AdminAppointmentsCalendar';
 
 interface AdminDashboardProps {
@@ -443,7 +444,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   );
 
   return (
-    <div className="min-h-screen bg-stone-100 flex relative">
+    <div className="min-h-screen bg-stone-100 dark:bg-stone-950 flex relative">
       {/* Sidebar */}
       <aside className={`${isSidebarCollapsed ? 'w-20' : 'w-64'} bg-stone-900 text-stone-400 flex flex-col fixed h-full z-10 overflow-y-auto transition-all duration-200`}>
         <div className="p-6 flex items-center justify-between gap-3">
@@ -524,7 +525,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
           </button>
         </nav>
 
-        <div className="p-4 border-t border-stone-800">
+        <div className="p-4 border-t border-stone-800 space-y-3">
+          <div className={isSidebarCollapsed ? 'flex justify-center' : ''}>
+            <ThemeToggle
+              className={
+                isSidebarCollapsed
+                  ? 'inline-flex items-center justify-center w-10 h-10 rounded border border-stone-700 text-stone-200 hover:text-white hover:border-stone-500 transition-colors'
+                  : 'w-full inline-flex items-center gap-2 text-xs uppercase tracking-widest px-3 py-2 rounded border border-stone-700 text-stone-200 hover:text-white hover:border-stone-500 transition-colors'
+              }
+            />
+          </div>
+
           <button onClick={onLogout} className={`flex items-center gap-2 text-sm hover:text-white transition-colors ${isSidebarCollapsed ? "justify-center w-full" : ""}`}>
             <LogOut size={16} /><span className={isSidebarCollapsed ? 'hidden' : ''}>{t('common.logout')}</span>
           </button>
