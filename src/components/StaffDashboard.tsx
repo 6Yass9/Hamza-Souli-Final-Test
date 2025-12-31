@@ -6,7 +6,12 @@ import { StaffCalendar } from './StaffCalendar';
 
 interface StaffDashboardProps {
   user: User;
-  onDéconnexion: () => void;
+
+  // Keep your existing prop (accented) to avoid breaking your current wiring
+  onDéconnexion?: () => void;
+
+  // Also support the more standard prop name, in case App.tsx uses it
+  onLogout?: () => void;
 }
 
 const sortByTime = (a: Appointment, b: Appointment) => {
@@ -52,7 +57,7 @@ const statusPillClass = (s: Appointment['status']) => {
   }
 };
 
-export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconnexion }) => {
+export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconnexion, onLogout }) => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
@@ -83,22 +88,39 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconne
     return candidates[0]?.a || null;
   }, [appointments]);
 
+  const handleLogout = () => {
+    // Always clear app_token in case the parent handler forgets
+    try {
+      localStorage.removeItem('app_token');
+    } catch {
+      // ignore
+    }
+
+    // Support both prop names; prefer onLogout if provided
+    if (typeof onLogout === 'function') return onLogout();
+    if (typeof onDéconnexion === 'function') return onDéconnexion();
+
+    // As a last resort, reload to force app state reset
+    window.location.reload();
+  };
+
   return (
     <div className="min-h-screen bg-stone-50">
-      {/* Header */}
-      <header className="bg-white border-b border-stone-200 px-8 py-4 flex justify-between items-center sticky top-0 z-30">
+      {/* Header (match admin sidebar tone) */}
+      <header className="bg-stone-900 text-stone-100 px-8 py-4 flex justify-between items-center sticky top-0 z-30 shadow-sm">
         <div className="flex items-center gap-4">
           <img src="/logo.png" alt="Hamza Souli" className="h-6 w-auto" />
-          <span className="text-stone-400 font-sans text-xs uppercase tracking-wide border-l border-stone-200 pl-4">
+          <span className="font-sans text-xs uppercase tracking-wide border-l border-stone-700/70 pl-4 text-stone-200">
             Espace Staff
           </span>
         </div>
 
         <div className="flex items-center gap-6">
-          <span className="text-sm font-medium text-stone-600 hidden md:inline">Connecté en tant que {user.name}</span>
+          <span className="text-sm font-medium text-stone-200 hidden md:inline">Connecté en tant que {user.name}</span>
           <button
-            onClick={onDéconnexion}
-            className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-800 transition-colors"
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-200 hover:text-white transition-colors"
+            type="button"
           >
             <LogOut size={16} /> Déconnexion
           </button>
@@ -167,7 +189,9 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconne
                                   {app.type}
                                 </span>
                                 <span
-                                  className={`text-[10px] uppercase tracking-widest px-2 py-1 rounded border ${statusPillClass(app.status)}`}
+                                  className={`text-[10px] uppercase tracking-widest px-2 py-1 rounded border ${statusPillClass(
+                                    app.status
+                                  )}`}
                                 >
                                   {statusLabel(app.status)}
                                 </span>
@@ -200,7 +224,9 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconne
                 ) : (
                   <div className="flex flex-col items-center justify-center py-20 text-stone-400 text-center">
                     <CalendarIcon size={48} className="mb-4 opacity-20" />
-                    {selectedDate ? 'Aucun rendez-vous assigné à cette date.' : 'Sélectionnez une date pour voir vos assignations.'}
+                    {selectedDate
+                      ? 'Aucun rendez-vous assigné à cette date.'
+                      : 'Sélectionnez une date pour voir vos assignations.'}
                   </div>
                 )}
               </div>
