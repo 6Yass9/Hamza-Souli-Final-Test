@@ -12,7 +12,6 @@ import {
   Paperclip
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { ThemeToggle } from './ThemeToggle';
 
 interface ClientDashboardProps {
   user: User;
@@ -123,24 +122,23 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({ user, onLogout
   }, [activeAlbum]);
 
   return (
-    <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
-      <header className="bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 px-8 py-4 flex justify-between items-center sticky top-0 z-30">
-        <h1 className="font-serif text-2xl text-stone-900 dark:text-stone-100">
+    <div className="min-h-screen bg-stone-50">
+      <header className="bg-white border-b border-stone-200 px-8 py-4 flex justify-between items-center sticky top-0 z-30">
+        <h1 className="font-serif text-2xl text-stone-900">
           {t('login.brand')}{' '}
           <span className="text-stone-400 font-sans text-xs uppercase tracking-wide ml-2">
             {t('login.clientPortal')}
           </span>
         </h1>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-stone-600 dark:text-stone-300 hidden md:inline">
+          <span className="text-sm text-stone-600 hidden md:inline">
             {t('client.welcome', { name: user.name })}
           </span>
-          <ThemeToggle />
           <button
             onClick={onLogout}
-            className="flex items-center gap-2 text-xs uppercase tracking-wider text-stone-700 dark:text-stone-200 hover:text-stone-500 dark:hover:text-white"
+            className="flex items-center gap-2 text-xs uppercase tracking-wider hover:text-stone-500"
           >
-            <LogOut size={16} /> Déconnexion
+            <LogOut size={16} /> Logout
           </button>
         </div>
       </header>

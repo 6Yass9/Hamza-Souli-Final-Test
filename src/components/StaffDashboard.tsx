@@ -3,11 +3,10 @@ import { Appointment, User } from '../types';
 import { api } from '../services/api';
 import { Calendar as CalendarIcon, CalendarDays, Clock, LogOut, StickyNote } from 'lucide-react';
 import { StaffCalendar } from './StaffCalendar';
-import { ThemeToggle } from './ThemeToggle';
 
 interface StaffDashboardProps {
   user: User;
-  onLogout: () => void;
+  onDéconnexion: () => void;
 }
 
 const sortByTime = (a: Appointment, b: Appointment) => {
@@ -53,7 +52,7 @@ const statusPillClass = (s: Appointment['status']) => {
   }
 };
 
-export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onLogout }) => {
+export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onDéconnexion }) => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
@@ -85,23 +84,21 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onLogout }
   }, [appointments]);
 
   return (
-    <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
+    <div className="min-h-screen bg-stone-50">
       {/* Header */}
-      <header className="bg-stone-900 text-stone-200 border-b border-stone-800 px-8 py-4 flex justify-between items-center sticky top-0 z-30">
+      <header className="bg-white border-b border-stone-200 px-8 py-4 flex justify-between items-center sticky top-0 z-30">
         <div className="flex items-center gap-4">
           <img src="/logo.png" alt="Hamza Souli" className="h-6 w-auto" />
-          <span className="text-stone-300 font-sans text-xs uppercase tracking-wide border-l border-stone-700 pl-4">
+          <span className="text-stone-400 font-sans text-xs uppercase tracking-wide border-l border-stone-200 pl-4">
             Espace Staff
           </span>
         </div>
 
         <div className="flex items-center gap-6">
-          <span className="text-sm font-medium text-stone-300 hidden md:inline">Connecté en tant que {user.name}</span>
-
-          <ThemeToggle className="inline-flex items-center gap-2 text-xs uppercase tracking-widest px-3 py-2 rounded border border-stone-700 text-stone-200 hover:text-white hover:border-stone-500 transition-colors" />
+          <span className="text-sm font-medium text-stone-600 hidden md:inline">Connecté en tant que {user.name}</span>
           <button
-            onClick={onLogout}
-            className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-200 hover:text-white transition-colors"
+            onClick={onDéconnexion}
+            className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-800 transition-colors"
           >
             <LogOut size={16} /> Déconnexion
           </button>
@@ -112,7 +109,7 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onLogout }
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left column */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-white dark:bg-stone-900 p-6 shadow-sm border border-stone-100 dark:border-stone-800 rounded-lg">
+            <div className="bg-white p-6 shadow-sm border border-stone-100 rounded-lg">
               <h3 className="font-serif text-2xl mb-6 flex items-center gap-2 text-stone-900">
                 <CalendarDays size={20} className="text-stone-400" />
                 Mon planning
@@ -123,7 +120,7 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ user, onLogout }
               </p>
             </div>
 
-            <div className="bg-white dark:bg-stone-900 p-6 rounded-lg shadow-sm border border-stone-100 dark:border-stone-800">
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-stone-500">Assignations</p>
