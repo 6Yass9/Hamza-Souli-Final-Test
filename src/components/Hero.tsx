@@ -1,48 +1,72 @@
 import React from 'react';
 import { ArrowDown } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 
 interface HeroProps {
   scrollToSection: (id: string) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
-  const { t } = useTranslation();
-
   return (
-    <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center text-center">
+    <section
+      id="home"
+      className="relative h-screen w-full overflow-hidden flex items-center justify-center text-center"
+    >
+      {/* Background */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop"
-          alt="Wedding couple holding hands"
+          src="Public/hero_background_picture.jpg"
+          alt="Couple - Hamza Souli Weddings and Events"
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-stone-900/40" />
+        {/* Soft dark overlay for readability (keeps the photo visible) */}
+        <div className="absolute inset-0 bg-stone-900/35" />
       </div>
 
-      <div className="relative z-10 px-4 max-w-4xl mx-auto text-white fade-enter-active">
-        <h2 className="text-sm md:text-base tracking-[0.2em] uppercase mb-4 text-stone-200">
-          {t('hero.tagline')}
-        </h2>
+      {/* Content (Magazine cover style) */}
+      <div className="relative z-10 px-4 max-w-5xl mx-auto text-white">
+        {/* Top small title */}
+        <p className="font-sans text-xs md:text-sm tracking-[0.35em] uppercase text-white/90">
+          ABOUT OUR LOVE
+        </p>
 
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 leading-tight">
+        {/* Main title */}
+        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] mt-6">
           HAMZA SOULI
         </h1>
 
-        <p className="text-stone-100 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto">
-          {t('hero.subtitle')}
+        {/* Subtitles like in the PDF */}
+        <div className="mt-6 space-y-2">
+          <p className="font-sans text-[11px] md:text-xs tracking-[0.35em] uppercase text-white/90">
+            LOVE WILL BE FOREVER
+          </p>
+          <p className="font-sans text-[11px] md:text-xs tracking-[0.35em] uppercase text-white/90">
+            I WILL LOVE YOU FOREVER
+          </p>
+        </div>
+
+        {/* Photographer line */}
+        <p className="mt-8 font-sans text-[11px] md:text-xs tracking-[0.25em] uppercase text-white/90">
+          HAMZA SOULI — WEDDINGS AND EVENTS PHOTOGRAPHER
         </p>
 
-        <button
-          onClick={() => scrollToSection('portfolio')}
-          className="px-8 py-3 border border-white text-white hover:bg-white hover:text-stone-900 transition-all duration-300 tracking-wide uppercase text-sm"
-        >
-          {t('hero.cta')}
-        </button>
+        {/* CTA button (kept from your current hero) */}
+        <div className="mt-10">
+          <button
+            onClick={() => scrollToSection('portfolio')}
+            className="px-8 py-3 border border-white/90 text-white hover:bg-white hover:text-stone-900 transition-all duration-300 tracking-[0.2em] uppercase text-xs md:text-sm"
+          >
+            Voir le portfolio
+          </button>
+        </div>
       </div>
 
+      {/* Scroll hint */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-        <button onClick={() => scrollToSection('services')} className="text-white/80 hover:text-white" aria-label="Scroll">
+        <button
+          onClick={() => scrollToSection('services')}
+          className="text-white/80 hover:text-white transition-colors"
+          aria-label="Scroll"
+        >
           <ArrowDown size={32} strokeWidth={1} />
         </button>
       </div>
