@@ -14,7 +14,7 @@ export const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <img
-          src="Public/hero_background_picture.jpg"
+          src="/hero_background_picture.jpg"
           alt="Couple - Hamza Souli Weddings and Events"
           className="w-full h-full object-cover object-center"
         />
